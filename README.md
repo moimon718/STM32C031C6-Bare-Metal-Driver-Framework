@@ -4,7 +4,7 @@ A register-level embedded systems project developed for the STM32C031C6 microcon
 
 ## Project Overview
 
-This project implements a simple bare-metal-style driver framework for the STM32C031C6. The goal is to understand microcontroller peripherals by configuring registers directly rather than relying entirely on high-level Arduino APIs.
+This project implements a simple bare-metal-style driver framework for the STM32C031C6. The goal is to understand microcontroller peripherals through direct register configuration rather than relying entirely on high-level APIs.
 
 The project covers GPIO, RCC clock control, SysTick timing, USART2 communication, external interrupts, and software button debouncing.
 
@@ -57,3 +57,103 @@ Application
                 │
                 ▼
              PA5 LED
+External Interrupt Flow
+PC13 Button Press
+       │
+       ▼
+Falling Edge Detected
+       │
+       ▼
+EXTI Interrupt Callback
+       │
+       ▼
+Set buttonEvent = true
+       │
+       ▼
+Main Loop
+       │
+       ▼
+Debounce + Confirm Press
+       │
+       ▼
+Toggle PA5 LED
+       │
+       ▼
+Wait for Button Release
+USART2 Communication
+
+USART2 is used for serial communication between the STM32C031C6 and the Wokwi Serial Monitor.
+
+PC / Serial Monitor
+        │
+        │ TX
+        ▼
+      PA3
+        │
+     USART2
+        │
+        ▼
+      PA2
+        │
+        │ RX
+        ▼
+PC / Serial Monitor
+
+The project supports transmitting and receiving characters and implements a simple UART echo test.
+
+Example:
+
+Received: HELLO
+Enter text:
+Received: APPLE
+Enter text:
+Simulation
+
+The project was developed and tested using Wokwi with the NUCLEO-C031C6 board.
+
+Tested functionality:
+
+PA5 LED output
+PC13 button input
+External interrupt
+Button debouncing
+SysTick millisecond delay
+USART2 communication
+Project Files
+STM32C031C6-Bare-Metal-Driver-Framework/
+│
+├── sketch.ino
+├── gpio.h
+├── systick.h
+├── usart.h
+└── exti.h
+Key Concepts Demonstrated
+Memory-mapped peripheral registers
+RCC peripheral clock control
+GPIO register configuration
+GPIO input/output operation
+SysTick timer
+UART communication
+External interrupts
+Interrupt-driven programming
+volatile event flags
+Software debouncing
+Basic embedded driver architecture
+Tools & Technologies
+STM32C031C6
+NUCLEO-C031C6
+C/C++
+STM32 Arduino Core
+Wokwi
+GitHub
+Future Improvements
+Refactor implementation into separate .c and .h driver files
+Add SPI driver
+Add I2C driver
+Add ADC driver
+Add Timer/PWM driver
+Add DMA support
+Add RTOS support
+Author
+
+Moimon Mandal
