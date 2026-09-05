@@ -57,40 +57,32 @@ Application
                 │
                 ▼
              PA5 LED
-
-
-```markdown
+```
 ## GPIO
-```text
-The **GPIO driver** configures STM32 GPIO registers directly.
 
-### Implemented operations
+The GPIO driver configures STM32 GPIO registers directly.
+
+### Implemented Operations
 
 - GPIO peripheral clock enable
-- Input/output mode configuration
+- GPIO input/output mode configuration
+- Push-pull output configuration
 - Pull-up configuration
 - Digital input reading
 - Digital output writing
 - GPIO output toggling
 
-SysTick is configured as a basic timing source for millisecond delays.
+## RCC Clock Control
 
-The project uses the SysTick registers directly to create a simple blocking delay_ms() function.
+The RCC driver logic enables the required GPIO peripheral clocks before accessing the GPIO registers.
 
-USART2
+The project uses direct register access for peripheral clock configuration.
 
-USART2 is configured for serial communication.
+## SysTick
 
-The implementation supports:
+SysTick is configured as a basic timing source for generating millisecond delays.
 
-UART initialization
-Data transmission
-Data reception
-Echoing received characters
+The implementation provides a simple:
 
-Example:
-
-Received: HELLO
-Enter text:
-Received: APPLE
-Enter text:
+```c
+delay_ms()
